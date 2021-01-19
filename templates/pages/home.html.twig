@@ -4,6 +4,21 @@
 
 <div class="jumbotron text-center">
 	<h1>Salut salut</h1>
+        <div class="container">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-8">
+                {{ form_row(form.txt) }}
+            </div>
+            <div class="col-3">
+                {{ form_row(form.proprio) }}
+            </div>
+            <div class="col-1">
+                <button class="btn btn-primary">Rechercher</button>
+            </div>
+        </div>      
+        {{ form_end(form) }}
+        </div>
 </div>
 
 {%  endblock %}
