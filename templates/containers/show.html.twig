@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="jumbotron">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+
+			</div>
+			<div class="col-md-4">
+				<h1>{{ container.title }}</h1>
+				<h2>{{ container.description }}</h2>
+				<a href="{{ path('add_stuff' , {id : container.id}) }}" class="btn btn-primary">Ajouter une affaire</a>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+<div class="container mt-4">
+<h1>Mes affaires</h1>
+
+<table class="table table-striped">
+  <thead>
+    <td>Affaire</td>
+    <td>Description</td>
+    <td>Proprio</td>
+    <td>Action</td>
+  </thead>
+  <tbody>
+    {% for stuff in stuffs %}
+      <tr>
+        <td>{{stuff.title}}</td>
+        <td>{{stuff.description}}</td>
+        <td>{{stuff.OwnerName}}</td>
+        <td><a href="{{ path('delete_stuff', {id : stuff.id}) }}" class="btn btn-danger">Supprimer</a></td>
+      </tr>
+
+
+    {% endfor %}
+
+
+  <tr>
+      <td colspan="3" class="table-active">Y'a tu d'autres affaires ?</td>
+    </tr>
+  </tbody>
+</table>
+    
+    <div class="navigation">
+    {{ knp_pagination_render(stuffs) }}
+</div>
+
+</div>
+{%  endblock %}

@@ -1,0 +1,49 @@
+Home:
+    path: /
+    controller: App\Controller\HomeController::index
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+logout:
+    path: /logout
+   # controller: App\Controller\SecurityController::logout
+
+containers:
+    path: /container
+    controller: App\Controller\ContainersController::index
+
+container:
+    path: /container/{id}
+    controller: App\Controller\ContainersController::show
+
+admin_sac:
+    path: admin_sac
+    controller: App\Controller\AdminContainersController::index
+
+new_container:
+    path: /new_container    
+    controller: App\Controller\AdminContainersController::new
+
+edit_container:
+    path: /admincontainer/{id}
+    controller: App\Controller\AdminContainersController::edit
+    methods: POST|GET
+
+delete_container:
+    path: /admincontainer/{id}
+    controller: App\Controller\AdminContainersController::delete
+    methods: DELETE
+
+add_stuff:
+    path: /stuff/add/{id}
+    controller: App\Controller\StuffsController::add
+
+delete_stuff:
+    path: /stuff/delete/{id}
+    controller: App\Controller\StuffsController::delete
+
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index

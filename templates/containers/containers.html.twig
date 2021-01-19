@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="jumbotron text-center">
+<h1>Mes sacs</h1>
+</div>
+
+<div class="container">
+	<div class="row flex">
+	{% for container in containers %}
+		<div class="col-3">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">
+					<a href="{{ path('container', {id : container.id}) }}">{{container.title}}</a>
+					</h5>
+					<p class="card-text">
+					{{container.description}}
+					</p>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+
+</div>
+{%  endblock %}

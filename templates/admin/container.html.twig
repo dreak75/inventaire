@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+
+<div class="container mt-4">
+	<h1>Gerer mes sacs</h1>
+	<a href="{{ path('new_container') }}" class="btn btn-primary">Ajouter</a>
+
+	{% for message in app.flashes('success') %}
+	<div class="alert alert-success">{{message}}</div>
+
+	{% endfor %}
+	<table class="table table-striped">
+	  <thead>
+	    <td>Sac</td>
+	    <td>Actions</td>
+	  </thead>
+	  <tbody>
+
+	  	{% for container in containers %}
+	  	<tr>
+	  		<td>{{container.title}}</td>
+	  		<td>
+	  			<a href="{{ path('edit_container', {id : container.id}) }}" class="btn btn-secondary">Editer</a>
+	  			<form method="post" onsubmit="return confirm('Sur ?')" action="{{ path('delete_container', {id : container.id}) }}" style="display:inline-block">
+	  				<input type="hidden" name="_method" value="DELETE">
+	  				<input type="hidden" name="_token" value="{{ csrf_token('delete_sac' ~ container.id) }}">
+	  				<button class="btn btn-danger">Delete</button>
+	  			</form>
+	  		<!--	<a href="{{ path('delete_container', {id : container.id}) }}" class="btn btn-danger">Supprimer</a> -->
+	  		</td>
+	  	</tr>
+	  	{% endfor %}
+	  </tbody>
+	</table>
+
+</div>
+{%  endblock %}
