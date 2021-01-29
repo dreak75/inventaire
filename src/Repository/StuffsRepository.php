@@ -30,6 +30,27 @@ class StuffsRepository extends ServiceEntityRepository
             ->getQuery()
         ;
     }
+    
+    public function findBySearchQuery($search)
+    {
+        $query = $this->createQueryBuilder('s');
+
+        if ($search->getProprio()){
+            $query = $query->andWhere('s.property = :proprio')
+                    ->setParameter('proprio', $search->getProprio());
+        }
+        
+        if ($search->getTxt()){
+            $query = $query->andWhere('s.title LIKE :txt')
+                    ->setParameter('txt', '%'.$search->getTxt().'%');
+        }
+         //   ->andWhere('s.containerId = :val')
+          //  ->setParameter('val', $value)
+        //    ->orderBy('s.id', 'ASC')
+       //     ->setMaxResults(10)
+           return $query->getQuery()
+        ;
+    }
 
     // /**
     //  * @return Stuffs[] Returns an array of Stuffs objects

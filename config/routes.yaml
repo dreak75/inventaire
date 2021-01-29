@@ -36,6 +36,10 @@ delete_container:
     controller: App\Controller\AdminContainersController::delete
     methods: DELETE
 
+edit_stuff:
+    path: /stuff/{id}
+    controller: App\Controller\StuffsController::edit
+
 add_stuff:
     path: /stuff/add/{id}
     controller: App\Controller\StuffsController::add

@@ -47,4 +47,25 @@ class StuffsController extends AbstractController
             'id' => $stuff->getContainerId()
             ]);
     }
+    
+    public function edit(stuffs $stuff, Request $request){
+        
+       // $option = new \App\Entity\Option;
+        //$stuff->addOption($option);
+        
+        $form = $this->createForm(StuffsType::class, $stuff);
+    	$form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()){
+    		$this->em->flush();
+                $this->addFlash('success', 'Contenant modifié');
+      		//return $this->redirectToRoute('admin_sac');
+    	}
+        
+        return $this->render('pages/editStuff.html.twig', [
+    		compact('stuff'),
+    		'form' => $form->createView()
+    		]
+    	);
+    }
 }

@@ -33,7 +33,7 @@ class StuffSearch {
      */
     private $txt;
     
-    public function getProprio(): ?integer
+    public function getProprio(): ?int
     {
         return $this->proprio;
     }

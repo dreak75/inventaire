@@ -34,8 +34,10 @@
       <tr>
         <td>{{stuff.title}}</td>
         <td>{{stuff.description}}</td>
-        <td>{{stuff.OwnerName}}</td>
-        <td><a href="{{ path('delete_stuff', {id : stuff.id}) }}" class="btn btn-danger">Supprimer</a></td>
+        <td>{{stuff.OwnerName}}</td>        
+        <td>
+            <a href="{{ path('edit_stuff', {id : stuff.id}) }}" class="btn btn-secondary">Editer</a>
+            <a href="{{ path('delete_stuff', {id : stuff.id}) }}" class="btn btn-danger">Supprimer</a></td>
       </tr>
 
 
@@ -43,7 +45,7 @@
 
 
   <tr>
-      <td colspan="3" class="table-active">Y'a tu d'autres affaires ?</td>
+      <td colspan="4" class="table-active">Y'a tu d'autres affaires ?</td>
     </tr>
   </tbody>
 </table>

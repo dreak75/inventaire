@@ -3,7 +3,7 @@
 {% block body %}
 
 <div class="jumbotron text-center">
-	<h1>Salut salut</h1>
+	<h1>Ou sont passées mes affaires ??</h1>
         <div class="container">
         {{ form_start(form) }}
         <div class="row">
@@ -19,6 +19,45 @@
         </div>      
         {{ form_end(form) }}
         </div>
+        
+      {% if stuffs is defined and stuffs|length > 0%}
+          
+<div class="container mt-4">
+    <h1>Peut être ici !!</h1>
+
+    <table class="table table-striped">
+      <thead>
+        <td>Affaire</td>
+        <td>Description</td>
+        <td>Proprio</td>
+        <td>Sac</td>
+      </thead>
+      <tbody>
+
+        {% for stuff in stuffs %}
+          <tr>
+            <td>{{stuff.title}}</td>
+            <td>{{stuff.description}}</td>
+            <td>{{stuff.OwnerName}}</td>
+            <td><a href="{{ path('container' , {id : stuff.ContainerId}) }}">{{stuff.container.title}}</a></td>
+            <td></td>
+          </tr>
+
+
+        {% endfor %}
+
+
+
+      <tr>
+          
+        </tr>
+      </tbody>
+    </table>
+    
+    <div class="navigation">
+    {{ knp_pagination_render(stuffs) }}
+    </div>
 </div>
+    {% endif %}
 
 {%  endblock %}

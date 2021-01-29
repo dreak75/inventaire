@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StuffsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,10 +40,28 @@ class Stuffs
      */
     private $property;
 
+    
     /**
      * @ORM\Column(type="integer")
      */
     private $containerId;
+    
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Option::class, inversedBy="stuffs")
+     */
+    private $options;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Containers::class, inversedBy="stuffs")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $container;
+
+    public function __construct()
+    {
+        $this->options = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -97,6 +117,45 @@ class Stuffs
     public function setContainerId(int $containerId): self
     {
         $this->containerId = $containerId;
+
+        return $this;
+    }
+    
+    /**
+     * @return Collection|Option[]
+     */
+    public function getOptions(): Collection
+    {
+        return $this->options;
+    }
+
+    public function addOption(Option $option): self
+    {
+        if (!$this->options->contains($option)) {
+            $this->options[] = $option;
+            $option->addStuff($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOption(Option $option): self
+    {
+        if ($this->options->removeElement($option)) {
+            $option->removeStuff($this);
+        }
+
+        return $this;
+    }
+
+    public function getContainer(): ?Containers
+    {
+        return $this->container;
+    }
+
+    public function setContainer(?Containers $container): self
+    {
+        $this->container = $container;
 
         return $this;
     }

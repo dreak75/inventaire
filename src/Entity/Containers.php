@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ContainersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Containers
 {
+    
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -31,9 +34,17 @@ class Containers
      * @ORM\Column(type="datetime")
      */
     private $created_at;
+    
+
+    /**
+     * @ORM\OneToMany(targetEntity=Stuffs::class, mappedBy="container")
+     */
+    private $stuffs; 
 
     public function __construct(){
         $this->created_at = new \datetime();
+        $this->affaires = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->stuffs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,4 +87,39 @@ class Containers
 
         return $this;
     }
+    
+   /* public function getAffaires(): Collection
+    {
+        return $this->affaires;
+    }*/
+
+   /**
+    * @return Collection|Stuffs[]
+    */
+   public function getStuffs(): Collection
+   {
+       return $this->stuffs;
+   }
+
+   public function addStuff(Stuffs $stuff): self
+   {
+       if (!$this->stuffs->contains($stuff)) {
+           $this->stuffs[] = $stuff;
+           $stuff->setContainer($this);
+       }
+
+       return $this;
+   }
+
+   public function removeStuff(Stuffs $stuff): self
+   {
+       if ($this->stuffs->removeElement($stuff)) {
+           // set the owning side to null (unless already changed)
+           if ($stuff->getContainer() === $this) {
+               $stuff->setContainer(null);
+           }
+       }
+
+       return $this;
+   }
 }

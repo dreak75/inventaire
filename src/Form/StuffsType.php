@@ -18,6 +18,11 @@ class StuffsType extends AbstractType
             ->add('property', ChoiceType::class, [
                 'choices' => $this->getChoices()
             ])
+            ->add('options', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, [
+                'class' => \App\Entity\Option::class,
+                'choice_label' => 'name',
+                'multiple' => true
+            ])
         ;
     }
 
