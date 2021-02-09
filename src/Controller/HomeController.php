@@ -16,9 +16,9 @@ class HomeController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
 /** var 
  @var Envi
 */
-public $twig;
+    public $twig;
 
-	public function __construct(Environment $twig, StuffsRepository $StuffRepository){
+    public function __construct(Environment $twig, StuffsRepository $StuffRepository){
             $this->StuffRepository = $StuffRepository;
             $this->twig = $twig;
 	}
