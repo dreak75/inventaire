@@ -13,6 +13,10 @@
             <div class="col-3">
                 {{ form_row(form.proprio) }}
             </div>
+           <div class="col-8">
+                {{ form_row(form.options) }}
+            </div>
+            
             <div class="col-1">
                 <button class="btn btn-primary">Rechercher</button>
             </div>
@@ -36,7 +40,7 @@
 
         {% for stuff in stuffs %}
           <tr>
-            <td>{{stuff.title}}</td>
+            <td><a href="{{ path('edit_stuff', {id : stuff.id}) }}">{{stuff.title}}</a></td>
             <td>{{stuff.description}}</td>
             <td>{{stuff.OwnerName}}</td>
             <td><a href="{{ path('container' , {id : stuff.ContainerId}) }}">{{stuff.container.title}}</a></td>
@@ -61,3 +65,17 @@
     {% endif %}
 
 {%  endblock %}
+
+{% block stylesheets %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{%  endblock %}
+
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $('.form_options_search').select2({
+            placeholder: 'Categorie'
+        });       
+    </script>
+    {%  endblock %}

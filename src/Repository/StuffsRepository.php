@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Stuffs;
+use App\Entity\StuffSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -43,6 +44,13 @@ class StuffsRepository extends ServiceEntityRepository
         if ($search->getTxt()){
             $query = $query->andWhere('s.title LIKE :txt')
                     ->setParameter('txt', '%'.$search->getTxt().'%');
+        }
+        
+        if ($search->getOptions()->count() > 0){
+            foreach($search->getOptions() as $options){
+                $query = $query->andWhere(':options MEMBER OF s.options')
+                                ->setParameter('options', $options);
+            }
         }
          //   ->andWhere('s.containerId = :val')
           //  ->setParameter('val', $value)

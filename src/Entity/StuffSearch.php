@@ -7,6 +7,7 @@
  */
 
 namespace App\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Description of StuffSearch
@@ -33,6 +34,16 @@ class StuffSearch {
      */
     private $txt;
     
+    /**
+     * 
+     * @var ArrayCollection
+     */
+    private $options;
+    
+    public function __construct() {
+        $this->options = new ArrayCollection();
+    }
+    
     public function getProprio(): ?int
     {
         return $this->proprio;
@@ -56,4 +67,14 @@ class StuffSearch {
 
         return $this;
     }
+    
+    function getOptions(): ArrayCollection {
+        return $this->options;
+    }
+
+    function setOptions(ArrayCollection $options): void {
+        $this->options = $options;
+    }
+
+
 }

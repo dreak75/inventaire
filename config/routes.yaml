@@ -48,6 +48,10 @@ delete_stuff:
     path: /stuff/delete/{id}
     controller: App\Controller\StuffsController::delete
 
+delete_all:
+    path: /stuff/empty/{id}
+    controller: App\Controller\StuffsController::empty
+        
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index

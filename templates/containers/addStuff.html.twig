@@ -6,7 +6,31 @@
 <h1>Ajout d'une affaire</h1>
 
 {{ form_start(form) }}
-	{{ form_widget(form) }}
+        <div class="row">
+            <div class="col-12">
+            {{ form_row(form.title) }}    
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+            {{ form_row(form.description) }}            
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+            {{ form_row(form.property) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+            {{ form_row(form.options) }}            
+            </div>
+        </div>
+        <!--<div class="row" style="visibility: hidden">
+            <div class="col-12">
+            {{ form_row(form.container) }}
+            </div>
+        </div>-->
 	<button class="btn btn-primary">Ajouter</button>
 {{ form_end(form) }}
 

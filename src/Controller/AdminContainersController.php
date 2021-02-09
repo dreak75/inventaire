@@ -48,9 +48,9 @@ class AdminContainersController extends AbstractController{
     	$form->handleRequest($request);
 
     	if ($form->isSubmitted() && $form->isValid()){
-    		$this->em->flush();
+            $this->em->flush();
             $this->addFlash('success', 'Contenant modifié');
-      		return $this->redirectToRoute('admin_sac');
+            return $this->redirectToRoute('admin_sac');
     	}
 
     	return $this->render('admin/editContainer.html.twig', [
@@ -65,9 +65,9 @@ class AdminContainersController extends AbstractController{
     public function delete(containers $containers, Request $request){
 
         if($this->isCsrfTokenValid('delete_sac'.$containers->getId(), $request->get('_token'))){
-        $this->em->remove($containers);
-        $this->em->flush();
-        $this->addFlash('success', 'Sac supprimé');    
+            $this->em->remove($containers);
+            $this->em->flush();
+            $this->addFlash('success', 'Sac supprimé');    
         }
     	
     	return $this->redirectToRoute('admin_sac');

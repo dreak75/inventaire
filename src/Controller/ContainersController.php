@@ -44,11 +44,13 @@ class ContainersController extends AbstractController
        // $containers = $this->repository->findOneBy(['id' => $id]);
         $container = $this->repository->find($id);
         $stuffsQuery = $this->StuffRepository->findByContainerIdQuery($id);
+        $stuffsCount = count($this->StuffRepository->findByContainerIdQuery($id)->getResult());
         $stuffs = $paginator->paginate(
                 $stuffsQuery, //QUERY stuffs, not result
                 $request->query->getInt('page', 1), /*page number*/
                 3
                 );
-        return $this->render('containers/show.html.twig', ['container' => $container, 'stuffs' => $stuffs]);
+       
+        return $this->render('containers/show.html.twig', ['container' => $container, 'stuffs' => $stuffs, 'count' => $stuffsCount]);
     }
 }
