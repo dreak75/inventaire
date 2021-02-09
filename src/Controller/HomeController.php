@@ -21,7 +21,7 @@ class HomeController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
     public function __construct(Environment $twig, StuffsRepository $StuffRepository){
             $this->StuffRepository = $StuffRepository;
             $this->twig = $twig;
-	}
+    }
 
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
