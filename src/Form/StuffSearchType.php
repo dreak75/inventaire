@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\StuffSearch;
+use App\Entity\Option;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,7 +25,17 @@ class StuffSearchType extends AbstractType
                 'required' => false,
                 'label' => false, 
                 'attr' => [
-                    'placeholder' => "Nom de l'affaire"
+                    'placeholder' => "Nom, couleur, etc ..."
+                ]
+            ])
+            ->add('options', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, [
+                'required' => false,
+                'label' => false, 
+                'class' => Option::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'attr' => [
+                    'class' => 'form_options_search'
                 ]
             ])
        /*     ->add('submit', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, [

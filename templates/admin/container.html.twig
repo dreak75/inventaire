@@ -8,10 +8,6 @@
 	<h1>Gerer mes sacs</h1>
 	<a href="{{ path('new_container') }}" class="btn btn-primary">Ajouter</a>
 
-	{% for message in app.flashes('success') %}
-	<div class="alert alert-success">{{message}}</div>
-
-	{% endfor %}
 	<table class="table table-striped">
 	  <thead>
 	    <td>Sac</td>

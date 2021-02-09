@@ -21,7 +21,14 @@ class StuffsType extends AbstractType
             ->add('options', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, [
                 'class' => \App\Entity\Option::class,
                 'choice_label' => 'name',
-                'multiple' => true
+                'multiple' => true,
+                'required' => false
+            ])
+            ->add('container', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, [
+                'class' => \App\Entity\Containers::class,
+                'choice_label' => 'title',
+                'multiple' => false,
+                'required' => false,
             ])
         ;
     }
