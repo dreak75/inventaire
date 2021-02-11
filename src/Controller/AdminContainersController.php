@@ -56,7 +56,7 @@ class AdminContainersController extends AbstractController{
             if ($containers->getImageFile() instanceof UploadedFile){
                 $cacheManager->remove($helper->asset($containers, 'imageFile'));
             }
-            
+
             $this->em->flush();
             $this->addFlash('success', 'Contenant modifié');
             return $this->redirectToRoute('admin_sac');
