@@ -9,6 +9,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ContainersRepository;
 use App\Entity\Containers;
 use App\Form\ContainersType;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;  
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 class AdminContainersController extends AbstractController{
 	
@@ -42,12 +46,17 @@ class AdminContainersController extends AbstractController{
     	);
     }
 
-    public function edit(containers $containers, Request $request){
+    public function edit(containers $containers, Request $request, CacheManager $cacheManager, UploaderHelper $helper){
     	
     	$form = $this->createForm(ContainersType::class, $containers);
     	$form->handleRequest($request);
 
     	if ($form->isSubmitted() && $form->isValid()){
+            
+            if ($containers->getImageFile() instanceof UploadedFile){
+                $cacheManager->remove($helper->asset($containers, 'imageFile'));
+            }
+            
             $this->em->flush();
             $this->addFlash('success', 'Contenant modifié');
             return $this->redirectToRoute('admin_sac');

@@ -9,15 +9,22 @@
 <div class="container">
 	<div class="row flex">
 	{% for container in containers %}
-		<div class="col-3">
-			<div class="card">
+		<div class="col-3" style="padding: 5px">
+			<div class="card nb-4" >
+                            {% if container.filename %}
+                               <img src="{{ vich_uploader_asset(container, 'imageFile') | imagine_filter('thumbcontainer') }}" alt="card-img-top" style="width:100%;height:auto">
+                            {% else %}
+                                <img src="{{ "images/containers/No_image.jpg" | imagine_filter('thumbcontainer') }}" alt="card-img-top" style="width:100%;height:auto">
+                            {% endif %}   
 				<div class="card-body">
+                                     
+                                        
 					<h5 class="card-title">
 					<a href="{{ path('container', {id : container.id}) }}">{{container.title}}</a>
 					</h5>
-					<p class="card-text">
+					<!--<p class="card-text">
 					{{container.description}}
-					</p>
+					</p>-->
 				</div>
 			</div>
 		</div>

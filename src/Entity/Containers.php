@@ -6,9 +6,13 @@ use App\Repository\ContainersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ContainersRepository::class)
+ * @Vich\Uploadable
  */
 class Containers
 {
@@ -34,12 +38,36 @@ class Containers
      * @ORM\Column(type="datetime")
      */
     private $created_at;
-    
 
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="container_image", fileNameProperty="filename")
+     * 
+     * @var File|null
+     * @Assert\Image(
+     *  mimeTypes="image/jpeg"
+     * )
+     */
+    private $imageFile;
+    
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @var string|null
+     */
+    private $filename;
+
+    
     /**
      * @ORM\OneToMany(targetEntity=Stuffs::class, mappedBy="container")
      */
-    private $stuffs; 
+    private $stuffs;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at; 
 
     public function __construct(){
         $this->created_at = new \datetime();
@@ -122,4 +150,43 @@ class Containers
 
        return $this;
    }
+   
+   
+    function getImageFile(): ?File {
+        return $this->imageFile;
+    }
+
+    function getFilename(): ?string {
+        return $this->filename;
+    }
+
+    function setImageFile(?File $imageFile) {
+        $this->imageFile = $imageFile;
+        
+        // Only change the updated af if the file is really uploaded to avoid database updates.
+        // This is needed when the file should be set when loading the entity.
+        if ($this->imageFile instanceof File) {
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    function setFilename(?string $filename) {
+        $this->filename = $filename;
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+   
+   
 }

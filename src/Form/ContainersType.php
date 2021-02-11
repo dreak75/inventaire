@@ -16,6 +16,9 @@ class ContainersType extends AbstractType
             ->add('description', null, [
                 'label' => 'Descritpion'
             ])
+            ->add('imageFile', \Symfony\Component\Form\Extension\Core\Type\FileType::class, [
+                'required' => false,
+            ])
             //->add('created_at')
         ;
     }
